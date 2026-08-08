@@ -12,6 +12,13 @@ interface PDPProps {
   params: Promise<{ handle: string }>;
 }
 
+export async function generateStaticParams() {
+  const products = await getProducts();
+  return products.map(product => ({
+    handle: product.handle,
+  }));
+}
+
 export async function generateMetadata({ params }: PDPProps): Promise<Metadata> {
   const { handle } = await params;
   const product = await getProductByHandle(handle);
