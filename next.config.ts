@@ -1,11 +1,10 @@
 import type { NextConfig } from "next";
 
-const isProd = process.env.NODE_ENV === 'production';
-const isCustomDomain = process.env.CUSTOM_DOMAIN === 'true';
-const basePath = isProd && !isCustomDomain ? '/bagha-pet-store' : '';
+// Only use a subpath if explicitly building for GitHub Pages repository subfolder
+const isGithubPages = process.env.GITHUB_PAGES === 'true';
+const basePath = isGithubPages ? '/bagha-pet-store' : '';
 
 const nextConfig: NextConfig = {
-  output: 'export',
   basePath: basePath,
   assetPrefix: basePath ? `${basePath}/` : undefined,
   eslint: {
